@@ -22,15 +22,21 @@ export default function Item({ file }) {
     if (file) convertAndCompress(file);
   }, [file]);
 
+  const truncate = (str, n) => {
+    return str.length > n ? str.slice(0, n - 1) + "..." : str;
+  };
+
   return (
     <div className="w-full flex justify-between items-center border-b-purple-800 border-b-1">
       <div className="flex p-4">
-        {file.name.split(".").slice(0, -1).join(".") + ".webp"}
+        <p className="break-words line-clamp-1">
+          {file.name.split(".").slice(0, -1).join(".") + ".webp"}
+        </p>
       </div>
       <a
         href={convertedFile ? convertedFile : null}
-        download={true}
-        className="flex p-4 gap-1 items-center bg-purple-900 text-white font-semibold cursor-pointer hover:bg-purple-800 border-b-1 w-[140px] justify-center h-[56px]"
+        download={file.name.split(".").slice(0, -1).join(".") + ".webp"}
+        className="flex p-4 gap-1 items-center bg-purple-900 text-white font-semibold cursor-pointer hover:bg-purple-800 border-b-1 min-w-[140px] justify-center min-h-[56px]"
       >
         {convertedFile ? (
           <>
